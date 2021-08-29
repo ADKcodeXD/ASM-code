@@ -1,0 +1,33 @@
+DATAS SEGMENT
+    dw 1,2,3,4,5,6,7,8
+    dd 0,0,0,0,0,0,0,0
+DATAS ENDS
+
+STACKS SEGMENT
+    ;此处输入堆栈段代码
+STACKS ENDS
+
+CODES SEGMENT
+    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+START:
+    MOV AX,DATAS
+    MOV DS,AX
+    MOV SI,0
+    MOV DI,16
+    MOV CX,8
+   S:
+   	MOV BX,[SI]
+   	CALL pro
+   	MOV [DI],DX
+   	MOV [DI+2],AX
+   	ADD DI,4
+   	ADD SI,2
+   	LOOP S
+pro:MOV AX,BX
+	MUL BX
+	MUL BX                   
+	RET
+    MOV AH,4CH
+    INT 21H
+CODES ENDS
+    END START
